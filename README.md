@@ -1,5 +1,5 @@
-
-### 1 # YouTube Video Search Program
+### 1
+## YouTube Video Search Program
 
 ## Overview
 A Python program that searches YouTube for videos based on a user query using the YouTube Data API and offers the option to open the first result in Chrome, with comprehensive logging.
@@ -11,8 +11,8 @@ A Python program that searches YouTube for videos based on a user query using th
 - **Open in Chrome:** Option to open the first video link in Chrome or the default browser.
 - **Log Queries and Links:** Saves search queries and corresponding video links to a log file (`log.txt`).
 
-
-### 2 # GitHub Languages Program
+### 2
+## GitHub Languages Program
 
 ## Overview
 A Python program that fetches a GitHub username and returns the languages used in all the user's repositories, along with the percentage of each language used.

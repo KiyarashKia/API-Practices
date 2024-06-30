@@ -8,13 +8,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('searchBtn').addEventListener('click', () => {
         const city = document.getElementById('cityInput').value;
         getWeatherByCity(city);
+    });
 
-        document.getElementById('cityInput').addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                document.getElementById('searchBtn').click();
-            }
-        });
+    document.getElementById('cityInput').addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            document.getElementById('searchBtn').click();
+        }
     });
 });
 
@@ -25,7 +24,10 @@ function getWeather(position) {
     const lon = position.coords.longitude;
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric`)
         .then(response => response.json())
-        .then(data => displayWeather([data]))
+        .then(data => {
+            console.log('Geolocation Weather Data:', data);
+            displayWeather([data]);
+        })
         .catch(error => console.error('Error:', error));
 }
 
@@ -34,6 +36,7 @@ function getWeatherByCity(city) {
     fetch(`https://api.openweathermap.org/data/2.5/find?q=${city}&appid=${apikey}&units=metric`)
         .then(response => response.json())
         .then(data => {
+            console.log('City Weather Data:', data);
             if (data.cod === '404' || data.count === 0) {
                 displayError('City not found');
             } else {
@@ -48,7 +51,16 @@ function displayWeather(dataArray) {
     weatherInfo.innerHTML = '';
 
     dataArray.forEach((data, index) => {
+        if (!data || !data.sys || !data.weather || !data.main) {
+            console.error('Incomplete weather data:', data);
+            displayError('Incomplete weather data received');
+            return;
+        }
+
         const countryCode = data.sys.country.toUpperCase();
+        const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
         const card = document.createElement('div');
         card.className = 'col-sm-3 mb-4';
         card.innerHTML = `
@@ -61,8 +73,8 @@ function displayWeather(dataArray) {
                     <p class="card-text">Wind Speed: ${data.wind.speed} m/s</p>
                     <p class="card-text">Humidity: ${data.main.humidity}%</p>
                     <p class="card-text">Pressure: ${data.main.pressure} hPa</p>
-                    <p class="card-text">Sunrise: ${new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</p>
-                    <p class="card-text">Sunset: ${new Date(data.sys.sunset * 1000).toLocaleTimeString()}</p>
+                    <p class="card-text">Sunrise: ${sunrise}</p>
+                    <p class="card-text">Sunset: ${sunset}</p>
                 </div>
             </div>
         `;

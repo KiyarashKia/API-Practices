@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    text-align: center;
+}
+
+#cityInput, #searchBtn {
+    width: 400px;
+    min-width: 200px;
+    margin: 0 auto;
+}
+
+#searchBtn {
+    margin-top: 10px;
+}
+
+#weatherInfo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: 100%;
+    max-width: 300px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.card img {
+    width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+.text-danger {
+    color: #d9534f;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
